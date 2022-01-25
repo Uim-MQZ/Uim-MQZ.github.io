@@ -7,8 +7,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/c8d7255438c8415cb3828253eb1b0ce5.jpg?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5qmY6JC95Lqs5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center">
 <meta property="article:published_time" content="2022-01-21T12:48:35.000Z">
-<meta property="article:modified_time" content="2022-01-22T10:51:52.045Z">
+<meta property="article:modified_time" content="2022-01-25T04:46:05.222Z">
 <meta property="article:author" content="MQZ">
+<meta property="article:tag" content="C++">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/c8d7255438c8415cb3828253eb1b0ce5.jpg?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5qmY6JC95Lqs5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center"><title>快速排序 | 青栀's Blog</title><link ref="canonical" href="https://uim-mqz.github.io/2022/01/21/newpapername/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.6.2"><script>var Stun = window.Stun || {};
 var CONFIG = {
@@ -34,7 +35,7 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.0.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">快速排序</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-22</span></span></div></header><div class="post-body">
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.0.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner header-inner--height header-inner--bgcolor"><nav class="header-nav header-nav--sticky"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/"><span class="header-nav-menu-item__icon"><i class="fas fa-home"></i></span><span class="header-nav-menu-item__text">首页</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">文章</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">分类</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">标签</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">搜索</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">快速排序</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">发表于</span><span class="post-meta-item__value">2022-01-21</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">更新于</span><span class="post-meta-item__value">2022-01-25</span></span></div></header><div class="post-body">
         <h2 id="快速排序"   >
           <a href="#快速排序" class="heading-link"><i class="fas fa-link"></i></a><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2>
       
@@ -42,9 +43,207 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.0.0"></he
           <a href="#1-举个例子" class="heading-link"><i class="fas fa-link"></i></a><a href="#1-举个例子" class="headerlink" title="1.举个例子"></a>1.举个例子</h2>
       <p>   首先我们给出组数据：6 1 2 7 9 3 4 5 10 8<br>   接下来，我们的目的是将他们<strong>从小到大</strong>排序；</p>
 <p>   首先：我们设立一个<strong>基准数</strong>(也就是这组数据的第一个数，6)，接下来，我们需要把<strong>比基准数6大</strong>的数全部放到6的<strong>右边</strong>，<strong>比基准数6小</strong>的数全部放到6的<strong>左边</strong>（也就是将<strong>基准数</strong>放在中间某个位置使得基准数左边的数全部小于他，基准数右边的数全部大于他）</p>
-<p>   那么我们该如何实现这个过程呢？<br>   我们可以用<strong>交换</strong>的方法，我们从右边开始，寻找一个<strong>比6小</strong>的数，再从左边寻找一个<strong>比6大</strong>的数，然后<strong>交换他们的位置</strong><br>   这里我们需要用到两个小可爱：<strong>i</strong> 和 <strong>j</strong>；让他们分别从左右两端开始寻找符合要求的数<br>   看下图<br>|   ==6==   |   1   |   2   |   7   |   9   |   3   |   4   |   5   |   10   |   ==8==   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>|   ==<strong>i</strong>==  |      |      |      |      |      |    |      |    |   ==<strong>j</strong>==  |<br>小可爱 <strong>j</strong> 开始移动（每次必须是从 j 开始！）<br>|  ==6==   |   1   |   2   |   7   |   9   |   3   |   4   |  ==5==   |   10   |   8   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>|   ==<strong>i</strong>==  |      |      |      |      |      |    |    ==<strong>j</strong>==   |    |    |<br>找到一个比6小的数了，然后就是 i 的工作了<br>|   6   |   1   |   2   |  ==7==   |   9   |   3   |   4   |   ==5==   |   10   |   8   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>|     |      |      | ==<strong>i</strong>==    |      |      |    |    ==<strong>j</strong>==   |    |    |<br>交换！<br>|   6   |   1   |   2   |  ==5==   |   9   |   3   |   4   |   ==7==   |   10   |   8   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>|     |      |      | ==<strong>i</strong>==    |      |      |    |    ==<strong>j</strong>==   |    |    |<br>我们发现 <strong>i</strong> 和 <strong>j</strong> 并没有相遇，那么我们继续，我们发现9&gt;6,4&lt;6,果断交换！<br>|   6   |   1   |   2   |  5   |   ==4==   |   3   |   ==9==   |   7 |   10   |   8   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>|     |      |      |    | ==<strong>i</strong>==      |      |    ==<strong>j</strong>==  |     |    |    |<br>接下来，我们的小可爱 <strong>i</strong> 和 <strong>j</strong> 终于见到了彼此，那么我们就将 3 和 <strong>基准数6</strong> 交换，这样我们就找到了属于 6 的那个专属位置 <strong>k</strong> ！<br>|   ==3==   |   1   |   2   |  5   |   4   |   ==6==   |   9  |   7 |   10   |   8   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>|     |      |      |    |   |   ==<strong>i j</strong>==    |      |     |    |    |<br>到此第一轮“探测”真正结束。现在<strong>基准数6</strong>已经归位，此时以<strong>基准数6</strong>为分界点，6左边的数都小于等于6，6右边的数都大于等于6。回顾一下刚才的过程，其实哨兵 <strong>j</strong> 的使命就是要找小于基准数的数，而哨兵 <strong>i</strong> 的使命就是要找大于基准数的数，直到 <strong>i</strong> 和 <strong>j</strong> 碰头为止。</p>
+<p>   那么我们该如何实现这个过程呢？<br>   我们可以用<strong>交换</strong>的方法，我们从右边开始，寻找一个<strong>比6小</strong>的数，再从左边寻找一个<strong>比6大</strong>的数，然后<strong>交换他们的位置</strong><br>   这里我们需要用到两个小可爱：<strong>i</strong> 和 <strong>j</strong>；让他们分别从左右两端开始寻找符合要求的数<br>   看下图</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">==6==</th>
+<th>1</th>
+<th>2</th>
+<th>7</th>
+<th>9</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>10</th>
+<th align="center">==8==</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">==<strong>i</strong>==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>j</strong>==</td>
+</tr>
+</tbody></table></div>
+<p>小可爱 <strong>j</strong> 开始移动（每次必须是从 j 开始！）</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th align="center">==6==</th>
+<th>1</th>
+<th>2</th>
+<th>7</th>
+<th>9</th>
+<th>3</th>
+<th>4</th>
+<th align="center">==5==</th>
+<th>10</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">==<strong>i</strong>==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>j</strong>==</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>找到一个比6小的数了，然后就是 i 的工作了</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>6</th>
+<th>1</th>
+<th>2</th>
+<th align="center">==7==</th>
+<th>9</th>
+<th>3</th>
+<th>4</th>
+<th align="center">==5==</th>
+<th>10</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>i</strong>==</td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>j</strong>==</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>交换！</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>6</th>
+<th>1</th>
+<th>2</th>
+<th align="center">==5==</th>
+<th>9</th>
+<th>3</th>
+<th>4</th>
+<th align="center">==7==</th>
+<th>10</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>i</strong>==</td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>j</strong>==</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>我们发现 <strong>i</strong> 和 <strong>j</strong> 并没有相遇，那么我们继续，我们发现9&gt;6,4&lt;6,果断交换！</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>6</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th align="center">==4==</th>
+<th>3</th>
+<th align="center">==9==</th>
+<th>7</th>
+<th>10</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>i</strong>==</td>
+<td></td>
+<td align="center">==<strong>j</strong>==</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>接下来，我们的小可爱 <strong>i</strong> 和 <strong>j</strong> 终于见到了彼此，那么我们就将 3 和 <strong>基准数6</strong> 交换，这样我们就找到了属于 6 的那个专属位置 <strong>k</strong> ！</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>==3==</th>
+<th>1</th>
+<th>2</th>
+<th>5</th>
+<th>4</th>
+<th align="center">==6==</th>
+<th>9</th>
+<th>7</th>
+<th>10</th>
+<th>8</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td align="center">==<strong>i j</strong>==</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table></div>
+<p>到此第一轮“探测”真正结束。现在<strong>基准数6</strong>已经归位，此时以<strong>基准数6</strong>为分界点，6左边的数都小于等于6，6右边的数都大于等于6。回顾一下刚才的过程，其实哨兵 <strong>j</strong> 的使命就是要找小于基准数的数，而哨兵 <strong>i</strong> 的使命就是要找大于基准数的数，直到 <strong>i</strong> 和 <strong>j</strong> 碰头为止。</p>
 <p>现在我们将第一轮“探测”结束后的序列，就需要用到<strong>二分</strong>的思想。以6为<strong>分界点</strong>拆分成两个序列，左边的序列是“3 1 2 5 4”，右边的序列是“9 7 10 8”。接下来还需要分别处理这两个序列。因为6左边和右边的序列目前都还是很混乱的。不过不要紧，我们已经掌握了方法，接下来只要模拟刚才的方法分别处理6左边和右边的序列即可。现在先来处理6左边的序列现吧。</p>
-<p>第一轮探测后，我们得到以下序列<br>|   ==2==   |   1   |   ==3==   |  5   |   4   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>接下来我们又以 3 为分界点<br>|   ==1==   |   ==2==   |   3   |  ==4==   |  ==5==   |<br>|—-|—-|—-|—-|—-|—-|—-|—-|—-|—-|<br>如此便将 6 左边的序列排好序，右边同样如此；<br>由此我们可以发现，每一轮排序的过程，就是将<strong>基准数</strong>归位的过程，直到将每一位<strong>基准数</strong>归位，这个过程就结束了。</p>
+<p>第一轮探测后，我们得到以下序列</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>==2==</th>
+<th>1</th>
+<th>==3==</th>
+<th>5</th>
+<th>4</th>
+</tr>
+</thead>
+</table></div>
+<p>接下来我们又以 3 为分界点</p>
+<div class="table-container"><table>
+<thead>
+<tr>
+<th>==1==</th>
+<th>==2==</th>
+<th>3</th>
+<th>==4==</th>
+<th>==5==</th>
+</tr>
+</thead>
+</table></div>
+<p>如此便将 6 左边的序列排好序，右边同样如此；<br>由此我们可以发现，每一轮排序的过程，就是将<strong>基准数</strong>归位的过程，直到将每一位<strong>基准数</strong>归位，这个过程就结束了。</p>
 <p>接下来以《啊哈算法》里面的图示来展现：<br><img   src="https://img-blog.csdnimg.cn/c8d7255438c8415cb3828253eb1b0ce5.jpg?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBA5qmY6JC95Lqs5Z-O,size_20,color_FFFFFF,t_70,g_se,x_16#pic_center" style="width: image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,tepx;height: t_Q1NETiBA5qmY6JC95Lqs5Z-O,size_20,color_FFFFFF,t_70,g_se,px;"  alt="666"><br>在最坏的情况下，可能是相邻的两个数进行了交换。因此快速排序的最差时间复杂度和<br>冒泡排序是一样的，都是 O(N2)，它的平均时间复杂度为 O (NlogN)。其实快速排序是基于一种叫做“二分”的思想。</p>
 
         <h2 id="2-代码实现"   >
@@ -77,10 +276,10 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 6.0.0"></he
 
 
 
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://Uim-MQZ.github.io">MQZ</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://uim-mqz.github.io/2022/01/21/newpapername/">https://uim-mqz.github.io/2022/01/21/newpapername/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2022/01/20/hello-world/"><span class="paginator-prev__text">Hello World</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ 本文结束，感谢您的阅读 ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">本文作者: </span><span class="copyright-author__value"><a href="https://Uim-MQZ.github.io">MQZ</a></span></div><div class="copyright-link"><span class="copyright-link__name">本文链接: </span><span class="copyright-link__value"><a href="https://uim-mqz.github.io/2022/01/21/newpapername/">https://uim-mqz.github.io/2022/01/21/newpapername/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">版权声明: </span><span class="copyright-notice__value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://uim-mqz.github.io/tags/C/">C++</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2022/01/25/%E6%95%B0%E8%AE%BA-%E8%B4%AA%E5%BF%83/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">常用算法之——贪心</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2022/01/20/hello-world/"><span class="paginator-prev__text">Hello World</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">1.</span> <span class="toc-text">
           快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%BE%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="toc-number">2.</span> <span class="toc-text">
           1.举个例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">
-          2.代码实现</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/111.png" alt="avatar"></div><p class="sidebar-ov-author__text">未曾谋面的，也终究会相遇</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Uim-MQZ" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">文章</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">0</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MQZ</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.0.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="254,67,101" opacity="0.8" count="200" zIndex="-1"></script><script>function initSearch() {
+          2.代码实现</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/images/icons/111.png" alt="avatar"></div><p class="sidebar-ov-author__text">未曾谋面的，也终究会相遇</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social-item" href="https://github.com/Uim-MQZ" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><span class="sidebar-ov-social-item__icon"><i class="fab fa-github"></i></span></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">文章</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">分类</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">标签</div></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">你已阅读了 </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2022</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>MQZ</span></div><div><span>由 <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> 强力驱动</span><span> v6.0.0</span><span class="footer__devider">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.6.2</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="搜索文章（支持多关键词，请用空格分隔）"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1.0.1/dist/canvas-nest.min.js" color="254,67,101" opacity="0.8" count="200" zIndex="-1"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
 
